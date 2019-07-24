@@ -2,21 +2,18 @@ TESTS = test/*.js
 
 all: test
 
-build: clean configure compile
+build: clean compile
 
-configure:
-	node-waf configure
-
-compile: configure
-	node-waf build
+compile:
+	npm install .
+	npm run install
 
 test: build
 	@./node_modules/nodeunit/bin/nodeunit \
 		$(TESTS)
 
 clean:
-	rm -f bcrypt_lib.node
-	rm -Rf build
+	rm -Rf lib/bindings/
 
 
 .PHONY: clean test build
